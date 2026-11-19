@@ -1,0 +1,30 @@
+title: "Flight Data Lab"
+tagline: "Flight Data. Open Tools. Better Insights."
+description: >-
+  Flight Data Lab is an open-source initiative developing tools, software, and datasets
+  for UAV flight data analysis, telemetry intelligence, and battery performance estimation.
+url: "https://flightdatalab.com"
+baseurl: ""
+repository: "flightdatalab/flightdatalab.github.io"
+github_org: "https://github.com/flightdatalab"
+
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+      image: "/assets/images/logo.png"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE

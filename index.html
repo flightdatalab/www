@@ -1,0 +1,198 @@
+---
+layout: default
+title: "Home"
+---
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <div class="badge-pill">
+        <span class="pulse-dot"></span>
+        Open-Source UAV Data Engineering &amp; Analytics Ecosystem
+      </div>
+      <h1>Flight Data.<br>Open Tools.<br><span class="text-gradient">Better Insights.</span></h1>
+      <p class="hero-lead">
+        Flight Data Lab is an open-source software and research initiative focused on UAV (Unmanned Aerial Vehicle) flight data, telemetry analysis, and flight intelligence. We make flight logs easier to collect, normalize, analyze, and understand.
+      </p>
+      <div class="hero-actions">
+        <a href="{{ '/projects/' | relative_url }}" class="btn btn-primary">Explore Repositories</a>
+        <a href="#telemetry-demo" class="btn btn-secondary">Launch Telemetry Inspector</a>
+      </div>
+      <div class="hero-scope-note">
+        <strong>Clear Scope:</strong> Focused on the software and data infrastructure surrounding unmanned aviation—not drone hardware manufacturing, flight controller firmware, or commercial flight operations.
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="emblem-card">
+        <div class="emblem-header">
+          <span class="mono-tag">TELEMETRY_STREAM // UAV-LOG-V2</span>
+          <span class="status-badge">ACTIVE</span>
+        </div>
+        <div class="emblem-media">
+          <img src="{{ '/assets/images/logo.png' | relative_url }}" alt="Flight Data Lab UAV Telemetry Emblem" width="380" height="380">
+        </div>
+        <div class="emblem-metrics">
+          <div class="metric-item">
+            <span class="metric-label">INGESTION</span>
+            <span class="metric-val">.BIN / .ULG / CSV</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">NORMALIZED</span>
+            <span class="metric-val">Parquet &amp; Arrow</span>
+          </div>
+          <div class="metric-item">
+            <span class="metric-label">INTELLIGENCE</span>
+            <span class="metric-val">IMU / GPS / LiPo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="core-areas" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Core Focus Areas</span>
+      <h2>End-to-End UAV Flight Data Infrastructure</h2>
+      <p>Rather than focusing on airframes or flight control loops, our architecture targets the lifecycle of telemetry generated during flight.</p>
+    </div>
+
+    <div class="cards-grid five-col">
+      {% for area in site.data.core_areas %}
+      <article class="card area-card">
+        <div class="card-top">
+          <span class="mono-index">0{{ forloop.index }}</span>
+          <span class="chip">{{ area.metric }}</span>
+        </div>
+        <h3>{{ area.title }}</h3>
+        <p class="area-focus">{{ area.focus }}</p>
+        <p class="area-desc">{{ area.description }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="section section-alt">
+  <div class="container">
+    <div class="section-header row-header">
+      <div>
+        <span class="eyebrow">Open-Source Ecosystem</span>
+        <h2>Foundational Repositories</h2>
+        <p>Modular libraries designed for UAV developers, researchers, and flight test engineers.</p>
+      </div>
+      <a href="{{ '/projects/' | relative_url }}" class="btn btn-outline">View All Project Specs &rarr;</a>
+    </div>
+
+    <div class="cards-grid three-col">
+      {% for project in site.data.projects %}
+      <article class="card project-card">
+        <div class="project-meta">
+          <span class="lang-badge">{{ project.language }}</span>
+          <span class="version-badge">{{ project.version }}</span>
+          <span class="license-badge">{{ project.license }}</span>
+        </div>
+        <h3>{{ project.name }}</h3>
+        <p class="project-summary">{{ project.summary }}</p>
+        <ul class="feature-list">
+          {% for item in project.highlights %}
+          <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+        <div class="install-box">
+          <code>{{ project.install_cmd }}</code>
+          <button class="copy-btn" data-copy="{{ project.install_cmd }}" title="Copy install command">Copy</button>
+        </div>
+        <div class="project-footer">
+          <a href="https://github.com/{{ project.repo }}" target="_blank" rel="noopener noreferrer" class="text-link">
+            {{ project.repo }} &nearr;
+          </a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="telemetry-demo" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="eyebrow">Interactive Preview</span>
+      <h2>UAV Telemetry &amp; Anomaly Inspector</h2>
+      <p>Simulate how Flight Data Lab normalizes multi-rate flight logs, flags IMU/GPS/voltage anomalies, and estimates remaining battery endurance.</p>
+    </div>
+
+    <div class="workbench">
+      <div class="workbench-toolbar">
+        <div class="scenario-tabs" role="tablist" aria-label="Sample Flight Logs">
+          <button class="tab-btn active" data-scenario="nominal" role="tab" aria-selected="true">Log #104: Nominal Survey</button>
+          <button class="tab-btn" data-scenario="voltage_sag" role="tab" aria-selected="false">Log #118: Battery Voltage Sag</button>
+          <button class="tab-btn" data-scenario="imu_gps" role="tab" aria-selected="false">Log #129: IMU Spike &amp; GPS Drift</button>
+        </div>
+        <div class="schema-toggle">
+          <span class="mono-tag">Schema: FDL-Normalized-v1</span>
+        </div>
+      </div>
+
+      <div class="workbench-body">
+        <div class="chart-panel">
+          <div class="chart-header">
+            <span id="chartTitle">Pack Voltage (V) &amp; IMU Vibration RMS (m/s&sup2;)</span>
+            <span id="anomalyBadge" class="status-pill ok">0 Anomalies Detected</span>
+          </div>
+          <canvas id="telemetryCanvas" width="760" height="280" aria-label="Simulated UAV Telemetry Chart"></canvas>
+          <div class="chart-legend">
+            <span><i class="dot cyan"></i> Pack Voltage (V)</span>
+            <span><i class="dot blue"></i> IMU Z-Accel RMS</span>
+            <span><i class="dot amber"></i> Flagged Event Window</span>
+          </div>
+        </div>
+
+        <div class="diagnostics-panel">
+          <h4>Telemetry Intelligence Output</h4>
+          <div class="kpi-grid">
+            <div class="kpi-box">
+              <span class="kpi-label">Est. Remaining Flight</span>
+              <span class="kpi-value" id="kpiRemaining">14m 20s</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-label">Min Cell Voltage</span>
+              <span class="kpi-value" id="kpiVoltage">3.82 V</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-label">GPS HDOP Peak</span>
+              <span class="kpi-value" id="kpiHdop">0.94</span>
+            </div>
+            <div class="kpi-box">
+              <span class="kpi-label">IMU Outlier Score</span>
+              <span class="kpi-value" id="kpiImu">0.12 &sigma;</span>
+            </div>
+          </div>
+
+          <div class="log-feed">
+            <div class="log-feed-header">Normalized Event Stream</div>
+            <pre id="eventLogOutput"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container cta-panel">
+    <div class="cta-content">
+      <span class="eyebrow">Open Research &amp; Engineering</span>
+      <h2>Built for Reproducible Unmanned Aviation Science</h2>
+      <p>
+        Flight Data Lab standardizes how flight logs are parsed, validated, and shared across researchers and open-source developers—creating an extensible foundation beyond individual scripts.
+      </p>
+    </div>
+    <div class="cta-actions">
+      <a href="{{ '/docs/' | relative_url }}" class="btn btn-primary">Explore Data Schemas</a>
+      <a href="{{ '/about/' | relative_url }}" class="btn btn-secondary">Mission &amp; Positioning</a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,91 @@
+---
+layout: page
+title: "Datasets & Telemetry Schemas"
+eyebrow: "Data Engineering"
+subtitle: "Standardizing heterogeneous UAV flight controller logs into clean, reproducible analytical formats."
+---
+
+<div class="docs-grid">
+  <div class="card">
+    <h3>Why Telemetry Normalization Matters</h3>
+    <p>
+      Unmanned aerial vehicles record sensor topics at asynchronous rates—high-frequency IMU samples (400 Hz–1 kHz), medium-rate EKF attitude estimates (50–100 Hz), and lower-rate GPS or battery telemetry (5–10 Hz). Comparing flights across airframes or autopilots requires consistent schemas, units, and monotonic timestamps.
+    </p>
+    <h4>Core Schema Conventions</h4>
+    <ul class="feature-list">
+      <li><strong>Monotonic Timebase:</strong> Unified <code>timestamp_us</code> (microseconds since boot) paired with UTC epoch alignment when GPS lock is valid.</li>
+      <li><strong>SI Physical Units:</strong> Meters, meters/second, radians, volts, amperes, and degrees Celsius enforced across all adapters.</li>
+      <li><strong>Columnar Storage:</strong> Exportable to Apache Parquet and Arrow tables for zero-copy analytics in Python, DuckDB, and R.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Example Normalized Telemetry Record</h3>
+    <p>Sample JSON representation of an aligned telemetry frame produced by the Flight Data Lab pipeline:</p>
+    <pre class="code-block"><code>{
+  "flight_id": "fdl-2026-uav-0104",
+  "autopilot": "ardupilot-4.5",
+  "timestamp_us": 184520000,
+  "imu": {
+    "acc_x_ms2": 0.14,
+    "acc_y_ms2": -0.08,
+    "acc_z_ms2": -9.81,
+    "vibration_rms": 1.42
+  },
+  "gps": {
+    "lat": 43.761539,
+    "lon": -79.411079,
+    "alt_rel_m": 48.6,
+    "hdop": 0.88,
+    "satellites": 16
+  },
+  "battery": {
+    "voltage_v": 22.84,
+    "current_a": 18.6,
+    "consumed_mah": 1420,
+    "remaining_pct": 71.6,
+    "est_remaining_sec": 860
+  },
+  "anomaly_flags": []
+}</code></pre>
+  </div>
+</div>
+
+<div class="card" style="margin-top: 2rem;">
+  <h3>Open Research Datasets Roadmap</h3>
+  <p>
+    Alongside our analysis libraries, Flight Data Lab curates anonymized, schema-validated UAV telemetry datasets to benchmark anomaly detection algorithms and battery discharge models across multi-rotor and fixed-wing unmanned platforms.
+  </p>
+  <div class="table-wrap">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Dataset Track</th>
+          <th>Primary Signals</th>
+          <th>Target Use Case</th>
+          <th>Format</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>FDL-Nominal-Flight</strong></td>
+          <td>IMU, Baro, GPS, RC Out, Battery</td>
+          <td>Baseline flight profile &amp; trajectory modeling</td>
+          <td>Apache Parquet</td>
+        </tr>
+        <tr>
+          <td><strong>FDL-Power-Discharge</strong></td>
+          <td>Pack Voltage, Current Draw, Temp, mAh</td>
+          <td>Battery endurance &amp; voltage sag prediction</td>
+          <td>Parquet / CSV</td>
+        </tr>
+        <tr>
+          <td><strong>FDL-Anomaly-Bench</strong></td>
+          <td>Labeled Vibration, GPS Drift &amp; Sag Events</td>
+          <td>Evaluating flight log anomaly detectors</td>
+          <td>Parquet + JSON Labels</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <div class="brand">
+        <img src="{{ '/assets/images/logo.png' | relative_url }}" alt="Flight Data Lab" class="brand-logo" width="34" height="34">
+        <span class="brand-name">Flight Data Lab</span>
+      </div>
+      <p class="footer-tagline">{{ site.tagline }}</p>
+      <p class="footer-desc">
+        An open-source UAV data engineering and analytics ecosystem building accessible software, tools, and datasets for unmanned aviation.
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Ecosystem</h4>
+      <ul>
+        <li><a href="{{ '/#core-areas' | relative_url }}">Core Focus Areas</a></li>
+        <li><a href="{{ '/projects/' | relative_url }}">Open-Source Projects</a></li>
+        <li><a href="{{ '/#telemetry-demo' | relative_url }}">Interactive Telemetry Inspector</a></li>
+        <li><a href="{{ '/docs/' | relative_url }}">Schemas &amp; Documentation</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Repositories</h4>
+      <ul>
+        {% for project in site.data.projects %}
+        <li><a href="https://github.com/{{ project.repo }}" target="_blank" rel="noopener noreferrer">{{ project.name }}</a></li>
+        {% endfor %}
+        <li><a href="{{ site.github_org }}" target="_blank" rel="noopener noreferrer">GitHub Organization</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Community &amp; Scope</h4>
+      <p class="footer-note">
+        Focused strictly on UAV telemetry data infrastructure, flight log normalization, and analytics—not drone hardware manufacturing or flight control firmware.
+      </p>
+      <a href="{{ '/about/' | relative_url }}" class="text-link">Read Positioning &amp; Charter &rarr;</a>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    <span>&copy; {{ "now" | date: "%Y" }} Flight Data Lab (flightdatalab.com). Open-source software &amp; research initiative.</span>
+    <span>Built for GitHub Pages</span>
+  </div>
+</footer>

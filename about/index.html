@@ -1,0 +1,52 @@
+---
+layout: page
+title: "About Flight Data Lab"
+eyebrow: "Mission & Positioning"
+subtitle: "Flight Data. Open Tools. Better Insights."
+---
+
+<div class="about-layout">
+  <div class="card">
+    <h2>Organizational Overview</h2>
+    <p>
+      Flight Data Lab is an open-source initiative developing tools, software, and datasets for UAV flight data analysis, telemetry intelligence, and battery performance estimation. Its projects make flight data more accessible, interpretable, and useful for developers, researchers, and the broader unmanned aviation community.
+    </p>
+    <p>
+      Rather than focusing on drone hardware or flight control systems, Flight Data Lab focuses on the data generated during flight—bridging the gap between raw autopilot logs and actionable engineering insights.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Ecosystem Positioning</h2>
+    <p>
+      Flight Data Lab is positioned as an <strong>open-source UAV data engineering and analytics ecosystem</strong>.
+    </p>
+    <ul class="feature-list">
+      <li><strong>What we are:</strong> An open software, schema, and research collective dedicated to unmanned aviation telemetry infrastructure.</li>
+      <li><strong>What we are not:</strong> A drone hardware manufacturer, flight controller firmware developer, or commercial drone operator.</li>
+      <li><strong>Why it matters:</strong> Keeping our scope centered on open data tooling gives the ecosystem room to grow cleanly across new analytical libraries, benchmark datasets, and community integrations without restricting future direction.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Core Pillars</h2>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Area</th>
+            <th>Focus</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for area in site.data.core_areas %}
+          <tr>
+            <td><strong>{{ area.title }}</strong></td>
+            <td>{{ area.focus }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
